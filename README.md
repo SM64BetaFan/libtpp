@@ -1,7 +1,7 @@
 # libtpp - An integration to The Preservation Project's moveset and code to libsm64
 
 Since i was bored and i wanted to do something very random, I decided to import TPP's moveset, model, and sounds to LibSM64.
-TPP's is A REQUIREMEMT to compile and use this LibSM64 fork since it loads its sound from the `build/us/sound`.
+TPP's is A REQUIREMEMT to compile and use this LibSM64 fork since it loads its sound from the `build/us/sound` and with `tools/embed_tpp_audio.py` compiles it into the library.
 
 However, it still requires a ROM to use it (NOT INCLUDED.)
 
