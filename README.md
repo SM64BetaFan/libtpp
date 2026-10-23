@@ -1,11 +1,39 @@
+# libtpp - An integration to The Preservation Project's moveset and code to libsm64
+
+Since i was bored and i wanted to do something very random, I decided to import TPP's moveset, model, and sounds to LibSM64.
+TPP's is A REQUIREMEMT to compile and use this LibSM64 fork since it loads its sound from the `build/us/sound`.
+
+However, it still requires a ROM to use it (NOT INCLUDED.)
+
+# libtpp has the same api as libsm64.
+
+LibTPP has the same as LibSM64 to port it to any mod that already uses the original library.
+
+# It works the same way as libsm64.
+
+It's a libsm64 fork so it works the same way.
+
+Next up is the original libsm64 README.
+
 # libsm64 - Super Mario 64 as a library
 
 The purpose of this project is to provide a clean interface to the movement and rendering
 code which was reversed from SM64 by the [SM64 decompilation project](https://github.com/n64decomp/sm64),
 so that Mario can be dropped in to existing game engines or other systems with minimal effort.
-This project produces a shared library file containing mostly code from the decompilation project,
-and loads an official SM64 ROM at runtime to get Mario's texture and animation data, so any project
-which makes use of this library must ask the user to provide a ROM for asset extraction.
+This project produces a shared library file containing mostly code from the decompilation project.
+It bundles Mario's model and textures from The Preservation Project and loads animation data from
+an official SM64 ROM at runtime, so any project which makes use of this library must ask the user
+to provide a ROM for asset extraction.
+
+The audio API can load compiled sound resources independently from the ROM.
+To build TPP's US audio resources, install its build tools (including `libaudiofile`), then run
+`make -C tpp VERSION=us NOEXTRACT=1 build/us/sound/sound_data.ctl build/us/sound/sequences.bin`.
+This generates the sample table, sample data, music sequences, and `bank_sets`
+under `tpp/build/us/sound/`. Running the root `make` embeds those four files in
+the shared library when they are present. `sm64_audio_init(rom)` then uses the
+embedded TPP audio without external files, with ROM audio as a fallback when the
+library was built without TPP audio assets. Other clients can pass the four files
+directly to `sm64_audio_init_custom` if needed.
 
 The entire external-facing API of the shared library can be found in `libsm64.h`. Any client project
 making use of the library must only include that header and load the library. There's a minimal example
